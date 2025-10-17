@@ -169,6 +169,26 @@ public: // This is so that the code under can be used anywhere
         delete temp;
     }
 
+    void every_other_element() {
+        Node* current = head; // this is the start of the head
+        bool printIt = true; // this is to check if it should print or not
+
+        if (!current) { // this just checks if its empty
+            cout << "List is empty." << endl;
+            return;
+        }
+
+        while(current) { /// goes through the whole list one at a time
+            if (printIt)
+            cout << current->data << " "; // this prints the data if the bool is true
+            printIt = !printIt; //this filps the bool so it skips it next time
+            current = current->next; // this just goes to the next node on the list
+        }
+            cout << endl; // makes a new line at the end
+        }
+
+        
+
     ~DoublyLinkedList() { // this it the destructor that deletes the all of the nodes when the program ends
         while (head) { // while there is still a head and its not empty
             Node* temp = head; // stores the head
@@ -204,14 +224,21 @@ public: // This is so that the code under can be used anywhere
 };
 
 int main() {
-    DoublyLinkedList list;
+    DoublyLinkedList list; // this just makes an object for the class
 
-    list.push_back(10);
-    list.push_back(10);
-    list.push_back(10);
-    list.push_back(10);
-    list.push_back(10);
+    list.push_back(10); // this is just a list of numbers being added to the list that is using push_back()
+    list.push_back(20);
+    list.push_back(30);
+    list.push_back(40);
+    list.push_back(50);
 
-    
+    cout << "The full list: "; // shows the full list
+    list.print();
+
+    cout << "Every other element: "; // shows every other element
+    list.every_other_element(); // prints 10 30 50
+
+    cout << "Reverse the order: "; // shows the list in reverse
+    list.print_reverse();
     return 0;
 }
