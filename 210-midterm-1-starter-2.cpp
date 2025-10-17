@@ -63,109 +63,109 @@ public: // This is so that the code under can be used anywhere
 
         if (!temp) return; // if nothing is found it just returns
 
-        if (temp->prev)
-            temp->prev->next = temp->next;
+        if (temp->prev) // if there is a node before it it delets
+            temp->prev->next = temp->next; // link it
         else
-            head = temp->next; 
+            head = temp->next; // if its the first node it updates the head and moves it forward
 
         if (temp->next)
-            temp->next->prev = temp->prev;
+            temp->next->prev = temp->prev; // link it
         else
-            tail = temp->prev; 
+            tail = temp->prev; // if its the last node it updates the tail and moves it back
 
-        delete temp;
+        delete temp; // this just deletes the node
     }
 
-    void delete_pos(int pos) {
-        if (!head) {
+    void delete_pos(int pos) { // this deletes the node by its position on the list
+        if (!head) { // this checks if the list is empty
             cout << "List is empty." << endl;
             return;
         }
     
-        if (pos == 1) {
-            pop_front();
+        if (pos == 1) { // this is the if you are deleteing the first node
+            pop_front(); // this calls the pop front
             return;
         }
     
-        Node* temp = head;
+        Node* temp = head; // this starts at the head
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
+        for (int i = 1; i < pos; i++){ // make the position move foward to the position
+            if (!temp) { // if it reaches the end
                 cout << "Position doesn't exist." << endl;
                 return;
             }
             else
-                temp = temp->next;
+                temp = temp->next; // goes to the next
         }
-        if (!temp) {
+        if (!temp) { // if it reaches the end and is invalid
             cout << "Position doesn't exist." << endl;
             return;
         }
     
-        if (!temp->next) {
-            pop_back();
+        if (!temp->next) { // if its the last node
+            pop_back(); //this calls the pop front
             return;
         }
     
-        Node* tempPrev = temp->prev;
+        Node* tempPrev = temp->prev; // it fixes the node before the one being deleted
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
-        delete temp;
+        delete temp; // this deletes the node
     }
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
+    void push_back(int v) { // this adds a new node to the end of the list
+        Node* newNode = new Node(v); // makes a new node
+        if (!tail) // if the list is empty
             head = tail = newNode;
         else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+            tail->next = newNode; // links the old tail to the new node
+            newNode->prev = tail; // liks the new node back to the old tail
+            tail = newNode; // moves the tail to the new node
         }
     }
     
-    void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
+    void push_front(int v) { // this adds a new node to the start/front of the list
+        Node* newNode = new Node(v); // makes a new node
+        if (!head) // if it is a empty list
             head = tail = newNode;
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newNode->next = head;// links the old head to the new node
+            head->prev = newNode;// liks the new node back to the old head
+            head = newNode;// moves the head to the new node
         }
     }
     
-    void pop_front() {
+    void pop_front() { // this deletes the first node 
 
-        if (!head) {
+        if (!head) { // if its empty
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; // this just stores the old head
 
         if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+            head = head->next; // moves it forward
+            head->prev = nullptr; // removes the old one
         }
         else
-            head = tail = nullptr;
-        delete temp;
+            head = tail = nullptr; // if it is the only node it makes it empty
+        delete temp; // deletes the node
     }
 
-    void pop_back() {
-        if (!tail) {
+    void pop_back() { // this deletes the last node
+        if (!tail) { // if its empty
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node * temp = tail; // this just stores the old tail
 
         if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+            tail = tail->prev; // moves it back
+            tail->next = nullptr; // removes the old one
         }
         else
-            head = tail = nullptr;
+            head = tail = nullptr; // if it is the only node it makes it empty
         delete temp;
     }
 
